@@ -1,7 +1,7 @@
 resource "aws_security_group" "bastion_ssh_source" {
   name        = "bastion_ssh_source"
   description = "Used as ssh source for ssh_allow_bastion policy"
-  vpc_id      = "${var.vpc_ids["mgmt"]}"
+  vpc_id      = "${var.vpc_id}"
 
   tags = {
     Terraform = "true"
@@ -10,10 +10,11 @@ resource "aws_security_group" "bastion_ssh_source" {
   }
 }
 
-resource "aws_security_group" "ssh_allow_bastion_mgmt" {
+resource "aws_security_group" "ssh_allow_bastion" {
+  count       = "${var.vpc_ids_count}"
   name        = "ssh_allow_bastion"
   description = "Allow public ssh ingress"
-  vpc_id      = "${var.vpc_ids["mgmt"]}"
+  vpc_id      = "${var.vpc_ids[count.index]}"
 
   ingress {
     from_port       = 22
@@ -26,48 +27,6 @@ resource "aws_security_group" "ssh_allow_bastion_mgmt" {
     Terraform = "true"
     Name      = "ssh_allow_bastion"
     env       = "${var.env}"
-  }
-}
-
-resource "aws_security_group" "ssh_allow_bastion_dev" {
-  count = "${var.create_dev_sg}"
-
-  name        = "ssh_allow_bastion"
-  description = "Allow public ssh ingress"
-  vpc_id      = "${var.vpc_ids["dev"]}"
-
-  ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.bastion_ssh_source.id}"]
-  }
-
-  tags = {
-    Terraform = "true"
-    Name      = "ssh_allow_bastion"
-    env       = "dev"
-  }
-}
-
-resource "aws_security_group" "ssh_allow_bastion_prod" {
-  count = "${var.create_prod_sg}"
-
-  name        = "ssh_allow_bastion"
-  description = "Allow public ssh ingress"
-  vpc_id      = "${var.vpc_ids["prod"]}"
-
-  ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.bastion_ssh_source.id}"]
-  }
-
-  tags = {
-    Terraform = "true"
-    Name      = "ssh_allow_bastion"
-    env       = "prod"
   }
 }
 

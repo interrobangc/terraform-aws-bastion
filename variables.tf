@@ -3,9 +3,18 @@ variable "env" {
   default     = "default"
 }
 
+variable "vpc_id" {
+  description = "VPC ID that bastion host will reside in"
+}
+
+variable "vpc_ids_count" {
+  description = "count of vpc_ids"
+  default     = 1
+}
+
 variable "vpc_ids" {
-  type        = "map"
-  description = "VPC IDs"
+  type        = "list"
+  description = "VPC IDs that hosts will exist in"
 }
 
 variable "security_groups" {
