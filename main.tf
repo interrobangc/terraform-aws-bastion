@@ -1,3 +1,7 @@
+locals {
+  default_key_name = "${var.env}_terraform_ec2_key"
+}
+
 resource "aws_security_group" "bastion_ssh_source" {
   name        = "bastion_ssh_source"
   description = "Used as ssh source for ssh_allow_bastion policy"
@@ -38,7 +42,7 @@ module "bastion" {
 
   ami           = "ami-3ecc8f46"
   instance_type = "t2.nano"
-  key_name      = "terraform_ec2_key"
+  key_name      = "${var.key_name ? var.key_name : local.default_key_name}"
   monitoring    = true
   subnets       = ["${var.subnets}"]
 

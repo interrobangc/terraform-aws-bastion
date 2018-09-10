@@ -32,12 +32,7 @@ variable "count" {
   default     = false
 }
 
-variable "create_prod_sg" {
-  description = "Should we create prod security group?"
-  default     = true
-}
-
-variable "create_dev_sg" {
-  description = "Should we create dev security group?"
-  default     = true
+variable "key_name" {
+  description = "name of EC2 key for instance"
+  default     = false
 }
