@@ -40,8 +40,8 @@ module "bastion" {
   name           = "bastion"
   instance_count = "${var.count}"
 
-  ami           = "ami-3ecc8f46"
-  instance_type = "t2.nano"
+  ami           = "${var.ami}"
+  instance_type = "${var.instance_type}"
   key_name      = "${var.key_name ? var.key_name : local.default_key_name}"
   monitoring    = true
   subnets       = ["${var.subnets}"]

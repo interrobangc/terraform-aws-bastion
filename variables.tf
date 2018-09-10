@@ -3,6 +3,16 @@ variable "env" {
   default     = "default"
 }
 
+variable "instance_type" {
+  description = "instance_type to use for bastion host"
+  default     = "t2.nano"
+}
+
+variable "ami" {
+  description = "AMI to use for bastion host"
+  default     = "ami-3ecc8f46"
+}
+
 variable "vpc_id" {
   description = "VPC ID that bastion host will reside in"
 }
