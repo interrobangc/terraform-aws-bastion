@@ -27,6 +27,8 @@ resource "aws_security_group" "ssh_allow_bastion" {
     security_groups = ["${aws_security_group.bastion_ssh_source.id}"]
   }
 
+  depends_on = ["aws_security_group.bastion_ssh_source"]
+
   tags = {
     Terraform = "true"
     Name      = "ssh_allow_bastion"
@@ -42,7 +44,7 @@ module "bastion" {
 
   ami           = "${var.ami}"
   instance_type = "${var.instance_type}"
-  key_name      = "${var.key_name ? var.key_name : local.default_key_name}"
+  key_name      = "${var.key_name == false ? local.default_key_name : var.key_name}"
   monitoring    = true
   subnets       = ["${var.subnets}"]
 
