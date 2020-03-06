@@ -40,7 +40,7 @@ module "bastion" {
   source = "github.com/interrobangc/terraform-aws-ec2-instance"
 
   name           = "bastion"
-  instance_count = "${var.count}"
+  instance_count = "${var.bastion_count}"
 
   ami           = "${var.ami}"
   instance_type = "${var.instance_type}"

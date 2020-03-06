@@ -37,7 +37,7 @@ variable "subnets" {
   description = "Subnet ids for bastion"
 }
 
-variable "count" {
+variable "bastion_count" {
   description = "Number of bastiones (defaults to one per subnet)"
   default     = false
 }
