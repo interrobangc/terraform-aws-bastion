@@ -27,7 +27,7 @@ resource "aws_security_group" "ssh_allow_bastion" {
     security_groups = [aws_security_group.bastion_ssh_source.id]
   }
 
-  depends_on = ["aws_security_group.bastion_ssh_source"]
+  depends_on = [aws_security_group.bastion_ssh_source]
 
   tags = {
     Terraform = "true"
