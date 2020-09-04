@@ -23,17 +23,17 @@ variable "vpc_ids_count" {
 }
 
 variable "vpc_ids" {
-  type        = "list"
+  type        = list
   description = "VPC IDs that hosts will exist in"
 }
 
 variable "security_groups" {
-  type        = "list"
+  type        = list
   description = "Security groups for bastion"
 }
 
 variable "subnets" {
-  type        = "list"
+  type        = list
   description = "Subnet ids for bastion"
 }
 
