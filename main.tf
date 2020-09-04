@@ -46,12 +46,12 @@ module "bastion" {
   instance_type = var.instance_type
   key_name      = var.key_name == false ? local.default_key_name : var.key_name
   monitoring    = true
-  subnets       = [var.subnets]
+  subnet_id     = var.subnets[0]
 
-  vpc_security_group_ids = [
-    aws_security_group.bastion_ssh_source.id,
-    var.security_groups,
-  ]
+  vpc_security_group_ids = concat(
+    [aws_security_group.bastion_ssh_source.id],
+    var.security_groups
+  )
 
   associate_public_ip_address = true
 
