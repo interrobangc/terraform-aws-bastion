@@ -3,5 +3,5 @@ output "public_ip" {
 }
 
 output "sg_ssh_allow_bastion" {
-  value = [aws_security_group.ssh_allow_bastion.*.id]
+  value = aws_security_group.ssh_allow_bastion.*.id
 }
