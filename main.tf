@@ -25,7 +25,7 @@ resource "aws_security_group" "ssh_allow_bastion" {
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
-    security_groups = [aws_security_group.bastion_ssh_source.0.id]
+    security_groups = [var.bastion_count > 0 ? aws_security_group.bastion_ssh_source.0.id : ""]
   }
 
   depends_on = [aws_security_group.bastion_ssh_source]
@@ -50,7 +50,7 @@ module "bastion" {
   subnet_id     = var.bastion_count > 0 ? var.subnets.0 : false
 
   vpc_security_group_ids = concat(
-    [aws_security_group.bastion_ssh_source.0.id],
+    [var.bastion_count > 0 ? aws_security_group.bastion_ssh_source.0.id : ""],
     var.security_groups
   )
 
