@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_security_group" "bastion_ssh_source" {
-  count       = var.bastion_count ? 1 : 0
+  count       = var.bastion_count > 0 ? 1 : 0
   name        = "bastion_ssh_source"
   description = "Used as ssh source for ssh_allow_bastion policy"
   vpc_id      = var.vpc_id
@@ -16,7 +16,7 @@ resource "aws_security_group" "bastion_ssh_source" {
 }
 
 resource "aws_security_group" "ssh_allow_bastion" {
-  count       = var.bastion_count ? var.vpc_ids_count : 0
+  count       = var.bastion_count > 0 ? var.vpc_ids_count : 0
   name        = "ssh_allow_bastion"
   description = "Allow public ssh ingress"
   vpc_id      = var.vpc_ids[count.index]
