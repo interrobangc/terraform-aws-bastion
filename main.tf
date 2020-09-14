@@ -50,7 +50,7 @@ module "bastion" {
   subnet_id     = var.subnets.0
 
   vpc_security_group_ids = concat(
-    [aws_security_group.bastion_ssh_source.id.0],
+    [aws_security_group.bastion_ssh_source.0.id],
     var.security_groups
   )
 
