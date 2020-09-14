@@ -47,7 +47,7 @@ module "bastion" {
   instance_type = var.instance_type
   key_name      = var.key_name == false ? local.default_key_name : var.key_name
   monitoring    = true
-  subnet_id     = var.subnets.0
+  subnet_id     = var.bastion_count > 0 ? var.subnets.0 : false
 
   vpc_security_group_ids = concat(
     [aws_security_group.bastion_ssh_source.0.id],
