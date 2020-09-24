@@ -40,7 +40,7 @@ resource "aws_security_group" "ssh_allow_bastion" {
 module "bastion" {
   source = "github.com/terraform-aws-modules/terraform-aws-ec2-instance?ref=v2.15.0"
 
-  name           = "bastion"
+  name           = "bastion-${var.env}"
   instance_count = var.bastion_count
 
   ami           = var.ami
